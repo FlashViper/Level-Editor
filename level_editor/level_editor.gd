@@ -2,6 +2,9 @@ extends Node
 
 @export var is_standalone := true
 
+@onready var save_dialog := $SaveDialog
+@onready var open_dialog := $OpenDialog
+
 var current_level : LevelFile
 var current_path : String
 
@@ -24,6 +27,12 @@ func _ready() -> void:
 
 
 func init_tools() -> void:
+	tools.clear()
+	
+	for c in $Tools.get_children():
+		if c is Tool_LevelEditor:
+			tools.append(c)
+			
 	for t in tools:
 		t.level = current_level
 		t._initialize()
@@ -31,7 +40,7 @@ func init_tools() -> void:
 
 
 func select_tool(index: int) -> void:
-	if index == current_tool:
+	if index == current_tool or tools.size() < 1:
 		return
 	
 	if index >= 0:
@@ -42,14 +51,24 @@ func select_tool(index: int) -> void:
 	current_tool = index
 
 
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action("save"):
+		save_current_level()
+	elif event.is_action("open"):
+		open_dialog.request_file()
+		var filepath := await open_dialog.file_submitted as String
+		if filepath != "":
+			load_from_disk(filepath)
+
+
 func save_current_level() -> void:
 	if current_path != "":
 		save_to_disk(current_path)
-#	else:
-#		save_dialogue.request_file()
-#		var filepath = await save_dialogue.file_submitted
-#		if filepath != "" and filepath != null:
-#			save_to_disk(filepath)
+	else:
+		save_dialog.request_file()
+		var filepath = await save_dialog.file_submitted
+		if filepath != "" and filepath != null:
+			save_to_disk(filepath)
 
 
 func load_from_disk(path_raw: String) -> void:

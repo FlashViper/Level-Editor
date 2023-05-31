@@ -1,5 +1,19 @@
-[gd_scene format=3 uid="uid://4qph40lp4ubv"]
+[gd_scene load_steps=3 format=3 uid="uid://4qph40lp4ubv"]
+
+[ext_resource type="Script" path="res://level_editor/level_editor.gd" id="1_4lom2"]
+[ext_resource type="PackedScene" uid="uid://cyj7h7k16br31" path="res://core/io/quick_save.tscn" id="1_hfstc"]
 
 [node name="LevelEditor" type="Node"]
+script = ExtResource("1_4lom2")
 
 [node name="Tools" type="Node" parent="."]
+
+[node name="SaveDialog" parent="." instance=ExtResource("1_hfstc")]
+visible = false
+base_dir = &"proj://levels/%s.lvl"
+
+[node name="OpenDialog" parent="." instance=ExtResource("1_hfstc")]
+visible = false
+base_dir = &"proj://levels/%s.lvl"
+allow_option_create_folders = false
+default_value_create_folders = false

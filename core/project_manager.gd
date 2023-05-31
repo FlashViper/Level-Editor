@@ -1,8 +1,7 @@
 extends Node
 
 const PROJECT_ALIAS := "proj:/"
-const DEBUG_PATH := "
-C:/Users/ellio/Godot/Projects/AnimatedGame/metroidvania/assets/settings_default.tres"
+const DEBUG_PATH := "C:/Users/ellio/Godot/Projects/AnimatedGame/metroidvania/assets/settings_default.tres"
 
 var project : WorldSettings
 var project_path : String
