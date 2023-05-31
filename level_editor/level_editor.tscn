@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://4qph40lp4ubv"]
+[gd_scene load_steps=9 format=3 uid="uid://4qph40lp4ubv"]
 
 [ext_resource type="Script" path="res://level_editor/level_editor.gd" id="1_4lom2"]
 [ext_resource type="PackedScene" uid="uid://cyj7h7k16br31" path="res://core/io/quick_save.tscn" id="1_hfstc"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://level_editor/tilemap/bitmap_display.gd" id="3_dg04g"]
 [ext_resource type="Script" path="res://core/controls/editable_rect.gd" id="4_1qc4n"]
 [ext_resource type="Script" path="res://core/camera/drag_camera.gd" id="6_dh7p1"]
+[ext_resource type="Script" path="res://level_editor/respawn/tool_respawn.gd" id="6_lwiw8"]
 
 [node name="LevelEditor" type="Node"]
 script = ExtResource("1_4lom2")
@@ -37,6 +38,11 @@ border_width = 5.0
 editor_only = false
 script = ExtResource("4_1qc4n")
 handle_drag_rect = false
+
+[node name="Respawn" type="Node" parent="Tools"]
+script = ExtResource("6_lwiw8")
+
+[node name="Root" type="Node2D" parent="Tools/Respawn"]
 
 [node name="SaveDialog" parent="." instance=ExtResource("1_hfstc")]
 visible = false
