@@ -18,8 +18,8 @@ func _enter_tree() -> void:
 		current_level = LevelFile.new()
 		current_level.world_settings = ProjectManager.project
 		current_level.size = ProjectManager.project.minimum_screen_size
-#		CameraManager.activate()
-#		CameraManager.position = $Camera.position
+		CameraManager.activate()
+		CameraManager.position = $CameraTarget.position
 
 
 func _ready() -> void:
