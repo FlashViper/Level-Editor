@@ -14,9 +14,9 @@ config/name="Level Editor"
 config/features=PackedStringArray("4.0", "Mobile")
 config/icon="res://icon.svg"
 
-[rendering]
+[autoload]
 
-renderer/rendering_method="mobile"
+ProjectManager="*res://core/project_manager.gd"
 
 [debug]
 
