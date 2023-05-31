@@ -51,7 +51,7 @@ func init_tools() -> void:
 		t.level = current_level
 		t._initialize()
 		t.set_active(false)
-		toolbar.add_tool(t._get_icon(), func(): print("HI"))
+		toolbar.add_tool(t._get_icon(), select_tool.bind(i))
 
 
 func select_tool(index: int) -> void:
