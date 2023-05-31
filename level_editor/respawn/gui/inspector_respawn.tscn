@@ -1,0 +1,70 @@
+[gd_scene load_steps=4 format=3 uid="uid://q0s8njpkairm"]
+
+[ext_resource type="Script" path="res://level_editor/respawn/gui/point_inspector.gd" id="1_m4kpr"]
+[ext_resource type="Texture2D" uid="uid://d2q6b6u10jmb8" path="res://gui/icons/icon_drag.tres" id="2_46png"]
+[ext_resource type="Script" path="res://gui/utility/drag_handle.gd" id="2_ob8md"]
+
+[node name="PointInspector" type="PanelContainer"]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -365.0
+offset_top = -443.0
+offset_right = -27.0
+offset_bottom = -19.0
+grow_horizontal = 0
+grow_vertical = 0
+script = ExtResource("1_m4kpr")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="DragHandle" type="TextureRect" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+modulate = Color(0.882353, 0.588235, 1, 1)
+layout_mode = 2
+texture = ExtResource("2_46png")
+stretch_mode = 5
+script = ExtResource("2_ob8md")
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Inspect Point"
+horizontal_alignment = 1
+
+[node name="NameEdit" type="LineEdit" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+placeholder_text = "Jeremy_Jellyfish"
+alignment = 1
+
+[node name="Spacer" type="Control" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="PosX" type="SpinBox" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+allow_greater = true
+allow_lesser = true
+alignment = 1
+prefix = "x:"
+suffix = "px"
+
+[node name="PosY" type="SpinBox" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+allow_greater = true
+allow_lesser = true
+alignment = 1
+prefix = "y:"
+suffix = "px"

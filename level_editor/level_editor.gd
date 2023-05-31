@@ -50,8 +50,8 @@ func init_tools() -> void:
 		t.editor = editor
 		t.level = current_level
 		t._initialize()
-		t.set_active(false)
-		toolbar.add_tool(t._get_icon(), func(): print("HI"))
+		t.disable_tool()
+		toolbar.add_tool(t._get_icon(), select_tool.bind(i))
 
 
 func select_tool(index: int) -> void:
@@ -67,9 +67,9 @@ func select_tool(index: int) -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action("save"):
+	if event.is_action("save", true):
 		save_current_level()
-	elif event.is_action("open"):
+	elif event.is_action("open", true):
 		open_dialog.request_file()
 		var filepath := await open_dialog.file_submitted as String
 		if filepath != "":
