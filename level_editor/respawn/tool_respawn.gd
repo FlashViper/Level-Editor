@@ -1,7 +1,9 @@
 extends Tool_LevelEditor
 
+const INSPECTOR_SCENE := preload("gui/inspector_respawn.tscn")
+
 @onready var root: Node2D = $Root
-#@onready var inspector: PanelContainer = %PointInspector
+var inspector : PanelContainer
 
 var points : Array[Point] = []
 
@@ -9,17 +11,30 @@ var selected: int
 var drag_index := -1
 
 
-func _ready() -> void:
+func _initialize() -> void:
+	inspector = INSPECTOR_SCENE.instantiate()
+	editor.canvas.add_child(inspector)
+	
 	root.draw.connect(draw_targets)
-#	%PointInspector.name_changed.connect(
-#		func(new: String):
-#			points[selected].name = new
-#	)
-#	%PointInspector.position_changed.connect(
-#		func(new: Vector2):
-#			points[selected].position = new
-#			root.queue_redraw()
-#	)
+	inspector.name_changed.connect(edit_selected_name)
+	inspector.position_changed.connect(edit_selected_position)
+
+
+func _enabled() -> void:
+	inspector.show()
+
+
+func _disabled() -> void:
+	inspector.hide()
+
+
+func edit_selected_name(new: String) -> void:
+	points[selected].name = new
+
+
+func edit_selected_position(new: Vector2) -> void:
+	points[selected].position = new
+	root.queue_redraw()
 
 
 func draw_targets() -> void:
@@ -37,8 +52,8 @@ func draw_targets() -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
-#	if event is InputEventMouse:
-#		inspector.deselect()
+	if event is InputEventMouse:
+		inspector.deselect()
 	
 	if event is InputEventMouseButton:
 		if event.is_pressed():
@@ -73,14 +88,14 @@ func inspect_point(index: int) -> void:
 	selected = index
 	drag_index = index
 	root.queue_redraw()
-#	%PointInspector.initialize(
-#		points[index].name,
-#		points[index].position
-#	)
+	inspector.initialize(
+		points[index].name,
+		points[index].position
+	)
 
 
 func _save_data() -> void:
-	var root_pos := Vector2(editor.root_pos * ProjectManager.tile_size)
+	var root_pos := Vector2(editor.root_pos * ProjectManager.project.tile_size)
 	level.respawn_points = {}
 	
 	for p in points:
