@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://4qph40lp4ubv"]
+[gd_scene load_steps=8 format=3 uid="uid://4qph40lp4ubv"]
 
 [ext_resource type="Script" path="res://level_editor/level_editor.gd" id="1_4lom2"]
 [ext_resource type="PackedScene" uid="uid://cyj7h7k16br31" path="res://core/io/quick_save.tscn" id="1_hfstc"]
+[ext_resource type="PackedScene" path="res://gui/utility/tool_selector.tscn" id="2_ahbou"]
 [ext_resource type="Script" path="res://level_editor/tilemap/tool_tilemap.gd" id="2_byo6c"]
 [ext_resource type="Script" path="res://level_editor/tilemap/bitmap_display.gd" id="3_dg04g"]
 [ext_resource type="Script" path="res://core/controls/editable_rect.gd" id="4_1qc4n"]
@@ -9,6 +10,7 @@
 
 [node name="LevelEditor" type="Node"]
 script = ExtResource("1_4lom2")
+toolbar_scene = ExtResource("2_ahbou")
 
 [node name="Tools" type="Node" parent="."]
 
@@ -49,3 +51,5 @@ default_value_create_folders = false
 [node name="CameraTarget" type="Node2D" parent="."]
 position = Vector2(960, 540)
 script = ExtResource("6_dh7p1")
+
+[node name="Canvas" type="CanvasLayer" parent="."]

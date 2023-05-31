@@ -1,0 +1,65 @@
+[gd_scene load_steps=7 format=3]
+
+[ext_resource type="Texture2D" uid="uid://d2q6b6u10jmb8" path="res://gui/icons/icon_drag.tres" id="1_1hfsx"]
+[ext_resource type="Script" path="res://gui/utility/toolbar_level.gd" id="1_minox"]
+[ext_resource type="Script" path="res://GUI/utility/button_texture.gd" id="2_p4f1i"]
+[ext_resource type="Texture2D" uid="uid://dfmik2pl8j2s7" path="res://gui/icons/icon_save.tres" id="2_r6634"]
+[ext_resource type="Texture2D" uid="uid://boa1phvwvwgib" path="res://gui/icons/icon_undo.tres" id="3_h83u8"]
+[ext_resource type="Texture2D" uid="uid://bbx0hypr87bag" path="res://gui/icons/icon_settings.tres" id="5_xmut6"]
+
+[node name="ToolBar" type="PanelContainer"]
+anchors_preset = 9
+anchor_bottom = 1.0
+grow_vertical = 2
+script = ExtResource("1_minox")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="Home" type="TextureRect" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 0
+texture = ExtResource("1_1hfsx")
+stretch_mode = 5
+script = ExtResource("2_p4f1i")
+
+[node name="Save" type="TextureRect" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 0
+texture = ExtResource("2_r6634")
+stretch_mode = 5
+script = ExtResource("2_p4f1i")
+
+[node name="Settings" type="TextureRect" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 0
+texture = ExtResource("5_xmut6")
+stretch_mode = 5
+script = ExtResource("2_p4f1i")
+
+[node name="Back" type="TextureRect" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 0
+texture = ExtResource("3_h83u8")
+stretch_mode = 5
+script = ExtResource("2_p4f1i")
+
+[node name="Spacer" type="ColorRect" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 5)
+layout_mode = 2
+color = Color(0.32549, 0.32549, 0.32549, 1)
+
+[node name="Tools" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2

@@ -6,3 +6,5 @@ extends Resource
 
 @export var level_bounds : ReferenceRect
 @export var tilemap : Node
+
+@export var canvas : CanvasLayer

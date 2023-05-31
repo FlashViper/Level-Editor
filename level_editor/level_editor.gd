@@ -1,7 +1,9 @@
 extends Node
 
 @export var is_standalone := true
+@export var toolbar_scene : PackedScene
 
+@onready var canvas: CanvasLayer = $Canvas
 @onready var save_dialog := $SaveDialog
 @onready var open_dialog := $OpenDialog
 
@@ -12,6 +14,7 @@ var current_path : String
 var tools : Array[Tool_LevelEditor]
 var current_tool := -1
 
+var toolbar : Control
 
 func _enter_tree() -> void:
 	if is_standalone:
@@ -24,6 +27,12 @@ func _enter_tree() -> void:
 
 func _ready() -> void:
 	editor = LevelEditorData.new()
+	editor.canvas = canvas
+	
+	toolbar = toolbar_scene.instantiate()
+	toolbar.save_pressed.connect(save_current_level)
+	canvas.add_child(toolbar)
+	
 	init_tools()
 	select_tool(0)
 
@@ -34,12 +43,14 @@ func init_tools() -> void:
 	for c in $Tools.get_children():
 		if c is Tool_LevelEditor:
 			tools.append(c)
-			
-	for t in tools:
+	
+	for i in tools.size():
+		var t := tools[i]
 		t.editor = editor
 		t.level = current_level
 		t._initialize()
 		t.set_active(false)
+		toolbar.add_tool(t._get_icon(), func(): print("HI"))
 
 
 func select_tool(index: int) -> void:
