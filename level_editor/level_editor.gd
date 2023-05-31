@@ -88,6 +88,6 @@ func load_from_disk(path_raw: String) -> void:
 	
 func save_to_disk(path: String) -> void:
 	for t in tools:
-		t.save_data()
+		t._save_data()
 	
 	current_level.save_to_file(ProjectManager.convert_path(path))

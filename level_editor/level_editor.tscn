@@ -1,12 +1,39 @@
-[gd_scene load_steps=3 format=3 uid="uid://4qph40lp4ubv"]
+[gd_scene load_steps=6 format=3 uid="uid://4qph40lp4ubv"]
 
 [ext_resource type="Script" path="res://level_editor/level_editor.gd" id="1_4lom2"]
 [ext_resource type="PackedScene" uid="uid://cyj7h7k16br31" path="res://core/io/quick_save.tscn" id="1_hfstc"]
+[ext_resource type="Script" path="res://level_editor/tilemap/tool_tilemap.gd" id="2_byo6c"]
+[ext_resource type="Script" path="res://level_editor/tilemap/bitmap_display.gd" id="3_dg04g"]
+[ext_resource type="Script" path="res://core/controls/editable_rect.gd" id="4_1qc4n"]
 
 [node name="LevelEditor" type="Node"]
 script = ExtResource("1_4lom2")
 
 [node name="Tools" type="Node" parent="."]
+
+[node name="Tilemap" type="Node" parent="Tools"]
+script = ExtResource("2_byo6c")
+
+[node name="Tilemap" type="Node2D" parent="Tools/Tilemap"]
+script = ExtResource("3_dg04g")
+
+[node name="Cursor" type="ReferenceRect" parent="Tools/Tilemap"]
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+border_color = Color(1, 1, 1, 1)
+border_width = 5.0
+editor_only = false
+
+[node name="LevelSize" type="ReferenceRect" parent="Tools/Tilemap"]
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+border_color = Color(1, 1, 1, 1)
+border_width = 5.0
+editor_only = false
+script = ExtResource("4_1qc4n")
+handle_drag_rect = false
 
 [node name="SaveDialog" parent="." instance=ExtResource("1_hfstc")]
 visible = false
