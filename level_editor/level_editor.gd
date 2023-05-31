@@ -16,6 +16,7 @@ var current_tool := -1
 
 var toolbar : Control
 
+
 func _enter_tree() -> void:
 	if is_standalone:
 		current_level = LevelFile.new()
