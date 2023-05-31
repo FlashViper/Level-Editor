@@ -1,9 +1,15 @@
 extends Node
 
 const PROJECT_ALIAS := "proj:/"
+const DEBUG_PATH := "
+C:/Users/ellio/Godot/Projects/AnimatedGame/metroidvania/assets/settings_default.tres"
 
 var project : WorldSettings
 var project_path : String
+
+
+func _enter_tree() -> void:
+	load_from_file(DEBUG_PATH)
 
 
 func convert_path(path_in: String) -> String:
