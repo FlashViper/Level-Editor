@@ -5,6 +5,7 @@ extends Node
 @onready var save_dialog := $SaveDialog
 @onready var open_dialog := $OpenDialog
 
+var editor : LevelEditorData
 var current_level : LevelFile
 var current_path : String
 
@@ -22,6 +23,7 @@ func _enter_tree() -> void:
 
 
 func _ready() -> void:
+	editor = LevelEditorData.new()
 	init_tools()
 	select_tool(0)
 
@@ -34,6 +36,7 @@ func init_tools() -> void:
 			tools.append(c)
 			
 	for t in tools:
+		t.editor = editor
 		t.level = current_level
 		t._initialize()
 		t.set_active(false)

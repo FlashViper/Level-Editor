@@ -20,8 +20,8 @@ func _ready() -> void:
 
 
 func _initialize() -> void:
-#	editor.tilemap = tilemap
-#	editor.root_pos = Vector2i()
+	editor.tilemap = tilemap
+	editor.root_pos = Vector2i()
 	
 	cursor.size = Vector2.ONE * level.world_settings.tile_size
 	root_pos = Vector2i()
@@ -90,7 +90,7 @@ func update_level_bounds(new_bounds: Rect2i, old_bounds: Rect2i) -> void:
 	level.size = new_bounds.size
 	level_size.update_transform()
 	
-#	editor.root_pos = new_bounds.position
+	editor.root_pos = new_bounds.position
 
 
 func on_bounds_submitted() -> void:
