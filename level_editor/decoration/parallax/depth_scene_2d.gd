@@ -12,14 +12,22 @@ var depths : Array[float] = []
 
 func _ready() -> void:
 	projection = Depth2D.new()
-	projection.initialize(project.screen_size_px)
 
 
-func add_object(obj: Node2D, depth: float) -> void:
+func initialize(screen_size_px : Vector2) -> void:
+	projection.initialize(screen_size_px)
+
+
+func add_object(obj: Node2D, depth: float, calculate_root := true) -> void:
 	objects.append(obj)
 	
-	root_positions.append(projection.inverse_projection(obj.global_position, depth))
+	var root_pos := obj.global_position
+	if calculate_root:
+		root_pos = projection.inverse_projection(obj.global_position, depth)
+	
+	root_positions.append(root_pos)
 	depths.append(depth)
+	add_child(obj)
 	
 	if depth > 0:
 		obj.z_index = -1
@@ -28,7 +36,7 @@ func add_object(obj: Node2D, depth: float) -> void:
 
 
 func _process(delta: float) -> void:
-	projection.camera_position = get_node("/root/Gameplay/Camera").get_screen_center_position()
+	projection.camera_position = CameraManager.get_screen_center_position()
 	var final_points := projection.project_point_bulk(root_positions, depths)
 	
 	for i in objects.size():
