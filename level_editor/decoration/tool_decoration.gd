@@ -69,7 +69,38 @@ func on_deselect() -> void:
 
 
 func _save_data() -> void:
-	pass
+	var path_map := {}
+	var file_paths := []
+	
+	for d in decoration:
+		var path := d.template._get_path()
+		if !file_paths.has(path):
+			path_map[file_paths.size()] = path
+			file_paths.append(path)
+	
+	var deco_data : Array[Dictionary] = []
+	for i in decoration.size():
+		var d := decoration[i]
+		var data := {
+			"decoration_type": d.template._get_type_id(),
+			"filepath_index": path_map[d.template._get_path()],
+			"transform": Transform2D(
+				d.node.transform.x, 
+				d.node.transform.y, 
+				depth_scene.root_positions[i]
+			),
+		}
+		
+		if abs(d.depth) > 1:
+			data["depth"] = d.depth
+		
+		if !d.node.modulate.is_equal_approx(Color.WHITE):
+			data["color"] = d.modulate
+		
+		deco_data.append(data)
+	
+	level.deco_textures = file_paths
+	level.decoration = deco_data
 
 
 func _load_data() -> void:

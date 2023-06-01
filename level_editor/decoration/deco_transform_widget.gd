@@ -37,8 +37,6 @@ func _unhandled_input(event: InputEvent) -> void:
 				translated.emit(relative)
 				edited_object = true
 			elif !started_in_rect and event.ctrl_pressed:
-#				relative = current.node.transform * relative
-				
 				var mouse_pos := current.node.get_global_mouse_position() - current.node.global_position
 				var previous := mouse_pos - relative
 				var rotation_factor := previous.angle_to(mouse_pos)
@@ -52,6 +50,7 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func _process(delta: float) -> void:
 	queue_redraw()
+
 
 func _draw() -> void:
 	if !current:

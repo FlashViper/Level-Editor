@@ -7,6 +7,7 @@ func _get_rect() -> Rect2: return Rect2()
 func _place() -> Node2D: return null
 func _get_preview() -> Texture2D: return null
 func _get_data() -> Dictionary: return {}
+func _get_path() -> String: return ""
 
 
 ## Overridable function that outputs a
