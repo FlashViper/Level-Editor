@@ -1,26 +1,71 @@
 extends Tool_LevelEditor
 
 @onready var depth_scene: Node2D = $Scene
-var decoration : Array[DecoInstance]
+@onready var deco_widget: Node2D = $TransformWidget
 
+var decoration : Array[DecoInstance]
 var selected : Array[int]
 
 func _initialize() -> void:
 	depth_scene.initialize(ProjectManager.project.screen_size_px)
+	deco_widget.translated.connect(on_decoration_translated)
+	deco_widget.rotated.connect(on_decoration_rotated)
+	deco_widget.scaled.connect(on_decoration_scaled)
+	deco_widget.deselected.connect(on_deselect)
 
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT:
-			if event.is_pressed():
+			if !event.is_pressed():
+				if selected.size() > 0:
+					return
+				
 				var mouse_pos := depth_scene.get_local_mouse_position()
 				for i in decoration.size():
 					if decoration[i].intersects_point(mouse_pos):
 						selected = [i]
 						break
+				
+				if selected.size() > 0:
+					deco_widget.edit(decoration[selected[0]])
 
 
+func on_decoration_translated(by: Vector2) -> void:
+	if selected.size() < 1:
+		return
+	
+	for s in selected:
+		depth_scene.root_positions[s] += by
 
+
+func on_decoration_rotated(by: float) -> void:
+	if selected.size() < 1:
+		return
+	
+	for s in selected:
+		decoration[s].node.rotate(by)
+
+
+func on_decoration_scaled(by: float) -> void:
+	if selected.size() < 1:
+		return
+	
+	for s in selected:
+		decoration[s].node.scale += Vector2.ONE * by
+		decoration[s].node.scale = decoration[s].node.scale.abs()
+
+
+func on_decoration_depth_changed(new: float) -> void:
+	if selected.size() < 1:
+		return
+	
+	printerr("changing the depth of decoration is not implimented yet :(")
+
+
+func on_deselect() -> void:
+	selected = []
+	deco_widget.edit(null)
 
 
 func _save_data() -> void:

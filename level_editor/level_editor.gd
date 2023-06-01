@@ -1,5 +1,6 @@
 extends Node
 
+@export var default_tool := -1
 @export var is_standalone := true
 @export var toolbar_scene : PackedScene
 
@@ -35,7 +36,7 @@ func _ready() -> void:
 	canvas.add_child(toolbar)
 	
 	init_tools()
-	select_tool(0)
+	select_tool(0 if default_tool < 0 else default_tool)
 
 
 func init_tools() -> void:

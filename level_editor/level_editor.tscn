@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://4qph40lp4ubv"]
+[gd_scene load_steps=12 format=3 uid="uid://4qph40lp4ubv"]
 
 [ext_resource type="Script" path="res://level_editor/level_editor.gd" id="1_4lom2"]
 [ext_resource type="PackedScene" uid="uid://cyj7h7k16br31" path="res://core/io/quick_save.tscn" id="1_hfstc"]
@@ -10,9 +10,11 @@
 [ext_resource type="Script" path="res://level_editor/respawn/tool_respawn.gd" id="6_lwiw8"]
 [ext_resource type="Script" path="res://level_editor/decoration/tool_decoration.gd" id="7_g0d22"]
 [ext_resource type="Script" path="res://level_editor/decoration/parallax/depth_scene_2d.gd" id="8_gp8lt"]
+[ext_resource type="Script" path="res://level_editor/decoration/deco_transform_widget.gd" id="9_hk4ar"]
 
 [node name="LevelEditor" type="Node"]
 script = ExtResource("1_4lom2")
+default_tool = 2
 toolbar_scene = ExtResource("2_ahbou")
 
 [node name="Tools" type="Node" parent="."]
@@ -51,6 +53,9 @@ script = ExtResource("7_g0d22")
 
 [node name="Scene" type="Node2D" parent="Tools/Decoration"]
 script = ExtResource("8_gp8lt")
+
+[node name="TransformWidget" type="Node2D" parent="Tools/Decoration"]
+script = ExtResource("9_hk4ar")
 
 [node name="SaveDialog" parent="." instance=ExtResource("1_hfstc")]
 visible = false
