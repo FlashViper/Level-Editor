@@ -3,7 +3,7 @@ extends Resource
 
 
 func _get_type_id() -> int: return -1
-func _get_bounding_box() -> Rect2: return Rect2()
+func _get_rect() -> Rect2: return Rect2()
 func _place() -> Node2D: return null
 func _get_preview() -> Texture2D: return null
 func _get_data() -> Dictionary: return {}

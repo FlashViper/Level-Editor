@@ -28,3 +28,6 @@ func _get_preview() -> Texture2D:
 	tex.atlas = atlas
 	tex.region = region
 	return tex
+
+func _get_rect() -> Rect2:
+	return Rect2(-region.size * 0.5, region.size)

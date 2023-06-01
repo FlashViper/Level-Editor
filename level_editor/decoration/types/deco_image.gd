@@ -21,3 +21,7 @@ func _place() -> Node2D:
 
 func _get_preview() -> Texture2D:
 	return texture
+
+
+func _get_rect() -> Rect2:
+	return Rect2(-texture.get_size() * 0.5, texture.get_size())

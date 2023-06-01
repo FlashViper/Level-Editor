@@ -3,9 +3,24 @@ extends Tool_LevelEditor
 @onready var depth_scene: Node2D = $Scene
 var decoration : Array[DecoInstance]
 
+var selected : Array[int]
 
 func _initialize() -> void:
 	depth_scene.initialize(ProjectManager.project.screen_size_px)
+
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event is InputEventMouseButton:
+		if event.button_index == MOUSE_BUTTON_LEFT:
+			if event.is_pressed():
+				var mouse_pos := depth_scene.get_local_mouse_position()
+				for i in decoration.size():
+					if decoration[i].intersects_point(mouse_pos):
+						selected = [i]
+						break
+
+
+
 
 
 func _save_data() -> void:
@@ -39,6 +54,8 @@ func _load_data() -> void:
 		instance.node.transform = data["transform"]
 		instance.node.modulate = data.get("color", Color.WHITE)
 		instance.depth = data.get("depth", 0.0)
-		####################################
+		
 		depth_scene.add_object(instance.node, instance.depth, false)
 		decoration.append(instance)
+
+
