@@ -12,6 +12,15 @@ func _initialize() -> void:
 	deco_widget.rotated.connect(on_decoration_rotated)
 	deco_widget.scaled.connect(on_decoration_scaled)
 	deco_widget.deselected.connect(on_deselect)
+	deco_widget.draw.connect(draw_camera_center)
+
+
+func _enabled() -> void:
+	deco_widget.show()
+
+
+func _disabled() -> void:
+	deco_widget.hide()
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -70,12 +79,12 @@ func on_deselect() -> void:
 
 func _save_data() -> void:
 	var path_map := {}
-	var file_paths := []
+	var file_paths : Array[String] = []
 	
 	for d in decoration:
 		var path := d.template._get_path()
 		if !file_paths.has(path):
-			path_map[file_paths.size()] = path
+			path_map[path] = file_paths.size()
 			file_paths.append(path)
 	
 	var deco_data : Array[Dictionary] = []
@@ -91,6 +100,8 @@ func _save_data() -> void:
 			),
 		}
 		
+		data.merge(d.template._get_data())
+		
 		if abs(d.depth) > 1:
 			data["depth"] = d.depth
 		
@@ -104,15 +115,27 @@ func _save_data() -> void:
 
 
 func _load_data() -> void:
+	for d in decoration:
+		d.node.queue_free()
+	
+	depth_scene.clear()
+	decoration.clear()
+	deco_widget.edit(null)
+	
 	depth_scene.project = level.world_settings
 	depth_scene.initialize(level.world_settings.screen_size_px)
 	
 	var resources := {}
+	var filepaths := {}
 	for i in level.deco_textures.size():
 		var obj = ImageTexture.create_from_image(Image.load_from_file(ProjectManager.convert_path(level.deco_textures[i])))
 		if obj:
 			resources[i] = obj
-
+	
+	if resources.size() < 1:
+		assert(level.deco_textures.size() == 0)
+		return
+	
 	for data in level.decoration:
 		var template : DecoTemplate
 
@@ -123,6 +146,8 @@ func _load_data() -> void:
 			LevelFile.DECO_ATLAS:
 				var atlas := resources[data["filepath_index"]] as Texture2D
 				template = DecoAtlas.create(atlas, data["region"])
+		
+		template.path = level.deco_textures[data["filepath_index"]]
 		
 		var instance := DecoInstance.new()
 		instance.template = template
@@ -135,3 +160,6 @@ func _load_data() -> void:
 		decoration.append(instance)
 
 
+func draw_camera_center() -> void:
+	deco_widget.draw_set_transform(CameraManager.get_screen_center_position())
+	deco_widget.draw_arc(Vector2(), 10, 0, TAU, 30, Color(Color.WHITE, 0.45), 3)

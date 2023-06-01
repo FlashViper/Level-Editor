@@ -4,6 +4,7 @@ extends DecoTemplate
 var atlas : Texture2D
 var region : Rect2
 
+
 static func create(p_texture: Texture2D, p_region: Rect2) -> DecoAtlas:
 	var deco := DecoAtlas.new()
 	deco.atlas = p_texture
@@ -29,5 +30,10 @@ func _get_preview() -> Texture2D:
 	tex.region = region
 	return tex
 
+
 func _get_rect() -> Rect2:
 	return Rect2(-region.size * 0.5, region.size)
+
+
+func _get_data() -> Dictionary:
+	return {"region": region}

@@ -18,6 +18,12 @@ func initialize(screen_size_px : Vector2) -> void:
 	projection.initialize(screen_size_px)
 
 
+func clear() -> void:
+	objects.clear()
+	root_positions.clear()
+	depths.clear()
+
+
 func add_object(obj: Node2D, depth: float, calculate_root := true) -> void:
 	objects.append(obj)
 	
