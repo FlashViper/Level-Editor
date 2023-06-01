@@ -41,7 +41,7 @@ func _unhandled_input(event: InputEvent) -> void:
 				var previous := mouse_pos - relative
 				var rotation_factor := previous.angle_to(mouse_pos)
 				var scale_px := mouse_pos.normalized().dot(relative)
-				var px_factor := mouse_pos.normalized().dot(current.template._get_rect().size)
+#				var px_factor := mouse_pos.normalized().dot(current.template._get_rect().size)
 				
 				rotated.emit(rotation_factor)
 				edited_object = true
