@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://4qph40lp4ubv"]
+[gd_scene load_steps=13 format=3 uid="uid://4qph40lp4ubv"]
 
 [ext_resource type="Script" path="res://level_editor/level_editor.gd" id="1_4lom2"]
 [ext_resource type="PackedScene" uid="uid://cyj7h7k16br31" path="res://core/io/quick_save.tscn" id="1_hfstc"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" path="res://core/camera/drag_camera.gd" id="6_dh7p1"]
 [ext_resource type="Script" path="res://level_editor/respawn/tool_respawn.gd" id="6_lwiw8"]
 [ext_resource type="Script" path="res://level_editor/decoration/tool_decoration.gd" id="7_g0d22"]
+[ext_resource type="PackedScene" uid="uid://qgtrj130ixen" path="res://level_editor/decoration/palette/deco_picker.tscn" id="8_c1l3i"]
 [ext_resource type="Script" path="res://level_editor/decoration/parallax/depth_scene_2d.gd" id="8_gp8lt"]
 [ext_resource type="Script" path="res://level_editor/decoration/deco_transform_widget.gd" id="9_hk4ar"]
 
@@ -50,6 +51,7 @@ script = ExtResource("6_lwiw8")
 
 [node name="Decoration" type="Node" parent="Tools"]
 script = ExtResource("7_g0d22")
+deco_picker_scene = ExtResource("8_c1l3i")
 
 [node name="Scene" type="Node2D" parent="Tools/Decoration"]
 script = ExtResource("8_gp8lt")

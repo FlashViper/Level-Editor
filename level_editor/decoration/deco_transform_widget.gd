@@ -27,6 +27,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			else:
 				if !edited_object:
 					deselected.emit()
+					get_tree().root.set_input_as_handled()
 				edited_object = false
 	
 	if event is InputEventMouseMotion:

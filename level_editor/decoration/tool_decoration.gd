@@ -1,10 +1,15 @@
 extends Tool_LevelEditor
 
+@export var deco_picker_scene : PackedScene
+
 @onready var depth_scene: Node2D = $Scene
 @onready var deco_widget: Node2D = $TransformWidget
 
+var picker : Control
+
 var decoration : Array[DecoInstance]
 var selected : Array[int]
+var current_template : DecoTemplate
 
 func _initialize() -> void:
 	depth_scene.initialize(ProjectManager.project.screen_size_px)
@@ -13,14 +18,24 @@ func _initialize() -> void:
 	deco_widget.scaled.connect(on_decoration_scaled)
 	deco_widget.deselected.connect(on_deselect)
 	deco_widget.draw.connect(draw_camera_center)
+	
+	picker = deco_picker_scene.instantiate()
+	picker.template_selected.connect(on_template_changed)
+	editor.canvas.add_child(picker)
 
 
 func _enabled() -> void:
+	picker.show()
 	deco_widget.show()
 
 
 func _disabled() -> void:
+	picker.hide()
 	deco_widget.hide()
+
+
+func on_template_changed(new: DecoTemplate) -> void:
+	current_template = new
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -38,6 +53,32 @@ func _unhandled_input(event: InputEvent) -> void:
 				
 				if selected.size() > 0:
 					deco_widget.edit(decoration[selected[0]])
+				elif current_template != null:
+					place_decoration(current_template, mouse_pos)
+	if event.is_action("delete"):
+		if selected.size() > 0:
+			delete_at(selected[0])
+			selected = []
+			deco_widget.edit(null)
+
+
+func place_decoration(template: DecoTemplate, position: Vector2, depth := 0.0) -> void:
+	var instance := DecoInstance.new()
+	instance.template = template
+	instance.node = template._place()
+	instance.node.position = position
+	instance.depth = depth
+	
+	depth_scene.add_object(instance.node, depth)
+	decoration.append(instance)
+
+
+func delete_at(index: int) -> void:
+	decoration[index].node.queue_free()
+	decoration.remove_at(index)
+	depth_scene.objects.remove_at(index)
+	depth_scene.root_positions.remove_at(index)
+	depth_scene.depths.remove_at(index)
 
 
 func on_decoration_translated(by: Vector2) -> void:
