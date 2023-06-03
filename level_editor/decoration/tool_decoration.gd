@@ -11,13 +11,14 @@ var decoration : Array[DecoInstance]
 var selected : Array[int]
 var current_template : DecoTemplate
 
+
 func _initialize() -> void:
 	depth_scene.initialize(ProjectManager.project.screen_size_px)
 	deco_widget.translated.connect(on_decoration_translated)
 	deco_widget.rotated.connect(on_decoration_rotated)
 	deco_widget.scaled.connect(on_decoration_scaled)
 	deco_widget.deselected.connect(on_deselect)
-	deco_widget.draw.connect(draw_camera_center)
+	deco_widget.draw.connect(draw_widgets)
 	
 	picker = deco_picker_scene.instantiate()
 	picker.template_selected.connect(on_template_changed)
@@ -60,6 +61,9 @@ func _unhandled_input(event: InputEvent) -> void:
 			delete_at(selected[0])
 			selected = []
 			deco_widget.edit(null)
+	if event.is_action("cancel"):
+		if current_template != null:
+			current_template = null
 
 
 func place_decoration(template: DecoTemplate, position: Vector2, depth := 0.0) -> void:
@@ -201,6 +205,15 @@ func _load_data() -> void:
 		decoration.append(instance)
 
 
-func draw_camera_center() -> void:
+func draw_widgets() -> void:
+	if current_template != null:
+		deco_widget.draw_set_transform(deco_widget.get_global_mouse_position())
+		deco_widget.draw_texture_rect(
+			current_template._get_preview(),
+			current_template._get_rect(),
+			false,
+			Color(1, 1, 1, 0.5)
+		)
+	
 	deco_widget.draw_set_transform(CameraManager.get_screen_center_position())
 	deco_widget.draw_arc(Vector2(), 10, 0, TAU, 30, Color(Color.WHITE, 0.45), 3)
