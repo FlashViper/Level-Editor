@@ -1,9 +1,9 @@
 [gd_scene load_steps=5 format=3 uid="uid://bcskebmnpgtvn"]
 
-[ext_resource type="Script" path="res://level_editor/decoration/palette/image_selector.gd" id="1_ekiag"]
-[ext_resource type="Texture2D" uid="uid://dyx6nla13sq01" path="res://gui/icons/icon_open.tres" id="2_5wjug"]
-[ext_resource type="Script" path="res://gui/utility/button_texture.gd" id="3_wkuh8"]
-[ext_resource type="PackedScene" uid="uid://cyj7h7k16br31" path="res://core/io/quick_save.tscn" id="4_qfkbk"]
+[ext_resource type="Script" path="res://level_editor/decoration/gui/palette/image_selector.gd" id="1_wvyxr"]
+[ext_resource type="PackedScene" uid="uid://cyj7h7k16br31" path="res://core/io/quick_save.tscn" id="2_mo3y0"]
+[ext_resource type="Texture2D" uid="uid://dyx6nla13sq01" path="res://gui/icons/icon_open.tres" id="3_1b22d"]
+[ext_resource type="Script" path="res://gui/utility/button_texture.gd" id="4_5s37d"]
 
 [node name="ImageSelector" type="MarginContainer"]
 anchors_preset = 15
@@ -16,9 +16,9 @@ offset_bottom = -121.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_force_pass_scroll_events = false
-script = ExtResource("1_ekiag")
+script = ExtResource("1_wvyxr")
 
-[node name="LoadDialog" parent="." instance=ExtResource("4_qfkbk")]
+[node name="LoadDialog" parent="." instance=ExtResource("2_mo3y0")]
 visible = false
 base_dir = &"proj://decoration/%s"
 allow_option_create_folders = false
@@ -47,10 +47,10 @@ caret_blink_interval = 0.5
 [node name="Open" type="TextureRect" parent="VBoxContainer/FilepathPanel"]
 unique_name_in_owner = true
 layout_mode = 2
-texture = ExtResource("2_5wjug")
+texture = ExtResource("3_1b22d")
 expand_mode = 3
 stretch_mode = 5
-script = ExtResource("3_wkuh8")
+script = ExtResource("4_5s37d")
 
 [node name="PreviewPanel" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2

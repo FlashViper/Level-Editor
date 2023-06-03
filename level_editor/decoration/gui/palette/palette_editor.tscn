@@ -1,8 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://c7d8yj7542pqg"]
+[gd_scene load_steps=4 format=3]
 
-[ext_resource type="Theme" uid="uid://ep6et3hhb6xi" path="res://gui/theme_godot_default.tres" id="1_htpqa"]
-[ext_resource type="Script" path="res://level_editor/decoration/palette/palette_editor.gd" id="1_jvfg0"]
-[ext_resource type="PackedScene" uid="uid://bcskebmnpgtvn" path="res://level_editor/decoration/palette/image_selector.tscn" id="1_mjq7y"]
+[ext_resource type="Theme" uid="uid://ep6et3hhb6xi" path="res://gui/theme_godot_default.tres" id="1_mtq3v"]
+[ext_resource type="Script" path="res://level_editor/decoration/gui/palette/palette_editor.gd" id="2_d8yc5"]
+[ext_resource type="PackedScene" uid="uid://bcskebmnpgtvn" path="res://level_editor/decoration/gui/palette/image_selector.tscn" id="3_g6q3q"]
 
 [node name="PalatteEditor" type="PanelContainer"]
 anchors_preset = 15
@@ -14,10 +14,10 @@ offset_right = -524.0
 offset_bottom = -166.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("1_htpqa")
-script = ExtResource("1_jvfg0")
+theme = ExtResource("1_mtq3v")
+script = ExtResource("2_d8yc5")
 
-[node name="ImageSelector" parent="." instance=ExtResource("1_mjq7y")]
+[node name="ImageSelector" parent="." instance=ExtResource("3_g6q3q")]
 visible = false
 layout_mode = 2
 
