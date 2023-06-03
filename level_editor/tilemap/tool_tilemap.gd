@@ -109,12 +109,12 @@ func place_tile(position: Vector2i, id: int) -> void:
 
 
 func _save_data() -> void:
-	level.tileData = tilemap.get_data_in_rect(Rect2i(root_pos, level.size))
+	level.tile_data = tilemap.get_data_in_rect(Rect2i(root_pos, level.size))
 
 
 func _load_data() -> void:
 	tilemap.clear()
-	tilemap.set_data_in_rect(Rect2i(root_pos, level.size), level.tileData)
+	tilemap.set_data_in_rect(Rect2i(root_pos, level.size), level.tile_data)
 	init_bounds()
 
 
