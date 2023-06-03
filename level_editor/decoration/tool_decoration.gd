@@ -35,11 +35,13 @@ func _initialize() -> void:
 
 func _enabled() -> void:
 	picker.show()
+	depth_widget.show()
 	deco_widget.show()
 
 
 func _disabled() -> void:
 	picker.hide()
+	depth_widget.hide()
 	deco_widget.hide()
 
 
