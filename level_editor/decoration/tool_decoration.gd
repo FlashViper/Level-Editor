@@ -234,3 +234,7 @@ func draw_widgets() -> void:
 	
 	deco_widget.draw_set_transform(CameraManager.get_screen_center_position())
 	deco_widget.draw_arc(Vector2(), 10, 0, TAU, 30, Color(Color.WHITE, 0.45), 3)
+
+
+func _get_icon() -> Texture2D:
+	return preload("res://level_editor/decoration/icon_level_decoration.tres")
