@@ -1,0 +1,70 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Theme" uid="uid://ep6et3hhb6xi" path="res://gui/theme_godot_default.tres" id="1_mtq3v"]
+[ext_resource type="Script" path="res://level_editor/decoration/gui/palette/palette_editor.gd" id="2_d8yc5"]
+[ext_resource type="PackedScene" uid="uid://bcskebmnpgtvn" path="res://level_editor/decoration/gui/palette/image_selector.tscn" id="3_g6q3q"]
+
+[node name="PalatteEditor" type="PanelContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 524.0
+offset_top = 166.0
+offset_right = -524.0
+offset_bottom = -166.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_mtq3v")
+script = ExtResource("2_d8yc5")
+
+[node name="ImageSelector" parent="." instance=ExtResource("3_g6q3q")]
+visible = false
+layout_mode = 2
+
+[node name="AtlasSelector" type="MarginContainer" parent="."]
+visible = false
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="AtlasSelector"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="AtlasSelector/VBoxContainer"]
+layout_mode = 2
+text = "Previous Atlases"
+horizontal_alignment = 1
+
+[node name="ListRoot" type="HFlowContainer" parent="AtlasSelector/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Menu" type="MarginContainer" parent="."]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Menu"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Menu/VBoxContainer"]
+layout_mode = 2
+text = "Palette Editor"
+horizontal_alignment = 1
+
+[node name="Control" type="Control" parent="Menu/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Image" type="Button" parent="Menu/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Add Image"
+
+[node name="Atlas" type="Button" parent="Menu/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Add Atlas"
+
+[node name="Scene" type="Button" parent="Menu/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+tooltip_text = "Not implimented yet"
+disabled = true
+text = "Add From Scene"

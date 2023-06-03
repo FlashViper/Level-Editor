@@ -1,0 +1,91 @@
+[gd_scene load_steps=5 format=3 uid="uid://bcskebmnpgtvn"]
+
+[ext_resource type="Script" path="res://level_editor/decoration/gui/palette/image_selector.gd" id="1_wvyxr"]
+[ext_resource type="PackedScene" uid="uid://cyj7h7k16br31" path="res://core/io/quick_save.tscn" id="2_mo3y0"]
+[ext_resource type="Texture2D" uid="uid://dyx6nla13sq01" path="res://gui/icons/icon_open.tres" id="3_1b22d"]
+[ext_resource type="Script" path="res://gui/utility/button_texture.gd" id="4_5s37d"]
+
+[node name="ImageSelector" type="MarginContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 501.0
+offset_top = 121.0
+offset_right = -515.0
+offset_bottom = -121.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_force_pass_scroll_events = false
+script = ExtResource("1_wvyxr")
+
+[node name="LoadDialog" parent="." instance=ExtResource("2_mo3y0")]
+visible = false
+base_dir = &"proj://decoration/%s"
+allow_option_create_folders = false
+default_value_create_folders = false
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Load image from File"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="FilepathPanel" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="Filepath" type="LineEdit" parent="VBoxContainer/FilepathPanel"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "enter filepath here..."
+caret_blink = true
+caret_blink_interval = 0.5
+
+[node name="Open" type="TextureRect" parent="VBoxContainer/FilepathPanel"]
+unique_name_in_owner = true
+layout_mode = 2
+texture = ExtResource("3_1b22d")
+expand_mode = 3
+stretch_mode = 5
+script = ExtResource("4_5s37d")
+
+[node name="PreviewPanel" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="PreviewWindow" type="Control" parent="VBoxContainer/PreviewPanel"]
+unique_name_in_owner = true
+clip_contents = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ColorRect" type="ColorRect" parent="VBoxContainer/PreviewPanel/PreviewWindow"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.207843, 0.207843, 0.207843, 1)
+
+[node name="Preview" type="TextureRect" parent="VBoxContainer/PreviewPanel/PreviewWindow"]
+unique_name_in_owner = true
+layout_mode = 2
+offset_left = 201.0
+offset_top = 68.0
+offset_right = 793.0
+offset_bottom = 664.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Add" type="Button" parent="VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Add to Palette"

@@ -1,0 +1,42 @@
+[gd_scene load_steps=3 format=3 uid="uid://do0y760cmgddj"]
+
+[ext_resource type="Script" path="res://level_editor/decoration/gui/palette/palette_item.gd" id="1_5gw7g"]
+[ext_resource type="Texture2D" uid="uid://4gnllcquwp0a" path="res://icon.svg" id="2_cf5iw"]
+
+[node name="PaletteItem" type="MarginContainer"]
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+script = ExtResource("1_5gw7g")
+
+[node name="Background" type="PanelContainer" parent="."]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Background"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Background/MarginContainer"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Preview" type="TextureRect" parent="Background/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+texture = ExtResource("2_cf5iw")
+expand_mode = 5
+stretch_mode = 5
+
+[node name="Name" type="Label" parent="Background/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Text"
+horizontal_alignment = 1

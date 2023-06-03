@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://4qph40lp4ubv"]
+[gd_scene load_steps=14 format=3 uid="uid://4qph40lp4ubv"]
 
 [ext_resource type="Script" path="res://level_editor/level_editor.gd" id="1_4lom2"]
 [ext_resource type="PackedScene" uid="uid://cyj7h7k16br31" path="res://core/io/quick_save.tscn" id="1_hfstc"]
@@ -8,9 +8,15 @@
 [ext_resource type="Script" path="res://core/controls/editable_rect.gd" id="4_1qc4n"]
 [ext_resource type="Script" path="res://core/camera/drag_camera.gd" id="6_dh7p1"]
 [ext_resource type="Script" path="res://level_editor/respawn/tool_respawn.gd" id="6_lwiw8"]
+[ext_resource type="Script" path="res://level_editor/decoration/tool_decoration.gd" id="7_g0d22"]
+[ext_resource type="Script" path="res://level_editor/decoration/parallax/depth_scene_2d.gd" id="8_gp8lt"]
+[ext_resource type="PackedScene" uid="uid://qgtrj130ixen" path="res://level_editor/decoration/gui/palette/deco_picker.tscn" id="8_h45a0"]
+[ext_resource type="Script" path="res://level_editor/decoration/deco_transform_widget.gd" id="9_hk4ar"]
+[ext_resource type="PackedScene" uid="uid://fggestbpikap" path="res://level_editor/decoration/depth_widget.tscn" id="13_yroe1"]
 
 [node name="LevelEditor" type="Node"]
 script = ExtResource("1_4lom2")
+default_tool = 2
 toolbar_scene = ExtResource("2_ahbou")
 
 [node name="Tools" type="Node" parent="."]
@@ -43,6 +49,17 @@ handle_drag_rect = false
 script = ExtResource("6_lwiw8")
 
 [node name="Root" type="Node2D" parent="Tools/Respawn"]
+
+[node name="Decoration" type="Node" parent="Tools"]
+script = ExtResource("7_g0d22")
+deco_picker_scene = ExtResource("8_h45a0")
+depth_widget_scene = ExtResource("13_yroe1")
+
+[node name="Scene" type="Node2D" parent="Tools/Decoration"]
+script = ExtResource("8_gp8lt")
+
+[node name="TransformWidget" type="Node2D" parent="Tools/Decoration"]
+script = ExtResource("9_hk4ar")
 
 [node name="SaveDialog" parent="." instance=ExtResource("1_hfstc")]
 visible = false

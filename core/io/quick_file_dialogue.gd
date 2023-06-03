@@ -50,6 +50,11 @@ func _ready() -> void:
 	popup_hide.connect(self.rejected)
 
 
+func reset() -> void:
+	hide()
+	input_text.text = ""
+
+
 func request_file() -> void:
 	if Engine.is_editor_hint():
 		return
