@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3 uid="uid://do1amdoluril3"]
+
+[ext_resource type="Script" path="res://gui/inspector/properties/property_int.gd" id="1_nitt1"]
+
+[node name="PropertyInt" type="HBoxContainer"]
+script = ExtResource("1_nitt1")
+
+[node name="PropertyName" type="Label" parent="."]
+layout_mode = 2
+text = "PROPERTY_NAME"
+
+[node name="Value" type="SpinBox" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+rounded = true
+allow_greater = true

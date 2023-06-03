@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3 uid="uid://crpo01uo1opah"]
+
+[ext_resource type="Script" path="res://gui/inspector/properties/property_float.gd" id="1_q7fml"]
+
+[node name="PropertyFloat" type="HBoxContainer"]
+script = ExtResource("1_q7fml")
+
+[node name="PropertyName" type="Label" parent="."]
+layout_mode = 2
+text = "PROPERTY_NAME"
+
+[node name="Value" type="SpinBox" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+step = 0.01
+allow_greater = true

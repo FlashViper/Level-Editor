@@ -1,0 +1,59 @@
+[gd_scene load_steps=4 format=3 uid="uid://bpxvjvq26b3lh"]
+
+[ext_resource type="Theme" uid="uid://ep6et3hhb6xi" path="res://gui/theme_godot_default.tres" id="1_3j8xt"]
+[ext_resource type="Script" path="res://gui/inspector/property_inspector.gd" id="2_y5n7u"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_7xd6f"]
+font_size = 64
+
+[node name="Inspector" type="PanelContainer"]
+offset_left = 158.0
+offset_top = 71.0
+offset_right = 834.0
+offset_bottom = 781.0
+mouse_force_pass_scroll_events = false
+theme = ExtResource("1_3j8xt")
+script = ExtResource("2_y5n7u")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Entity Inspector"
+label_settings = SubResource("LabelSettings_7xd6f")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Spacer" type="Control" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="MarginContainer/VBoxContainer/Spacer"]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = 20.0
+offset_top = -4.0
+offset_right = -20.0
+offset_bottom = 4.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.206914, 0.206914, 0.206914, 1)
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="PropertyRoot" type="VBoxContainer" parent="MarginContainer/VBoxContainer/ScrollContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
