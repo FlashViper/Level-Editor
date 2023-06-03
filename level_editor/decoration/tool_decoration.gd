@@ -1,19 +1,23 @@
 extends Tool_LevelEditor
 
 @export var deco_picker_scene : PackedScene
+@export var depth_widget_scene : PackedScene
 
-@onready var depth_scene: Node2D = $Scene
+@onready var root: Node2D = $Scene
 @onready var deco_widget: Node2D = $TransformWidget
 
+
 var picker : Control
+var depth_widget : Control
 
 var decoration : Array[DecoInstance]
 var selected : Array[int]
 var current_template : DecoTemplate
+var current_depth : float
 
 
 func _initialize() -> void:
-	depth_scene.initialize(ProjectManager.project.screen_size_px)
+	root.initialize(ProjectManager.project.screen_size_px)
 	deco_widget.translated.connect(on_decoration_translated)
 	deco_widget.rotated.connect(on_decoration_rotated)
 	deco_widget.scaled.connect(on_decoration_scaled)
@@ -23,6 +27,10 @@ func _initialize() -> void:
 	picker = deco_picker_scene.instantiate()
 	picker.template_selected.connect(on_template_changed)
 	editor.canvas.add_child(picker)
+	
+	depth_widget = depth_widget_scene.instantiate()
+	depth_widget.depth_changed.connect(on_depth_changed)
+	editor.canvas.add_child(depth_widget)
 
 
 func _enabled() -> void:
@@ -39,6 +47,13 @@ func on_template_changed(new: DecoTemplate) -> void:
 	current_template = new
 
 
+func on_depth_changed(new: float) -> void:
+	current_depth = new
+	if selected.size() > 0:
+		for s in selected:
+			root.reproject_depth(s, new)
+
+
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT:
@@ -46,7 +61,7 @@ func _unhandled_input(event: InputEvent) -> void:
 				if selected.size() > 0:
 					return
 				
-				var mouse_pos := depth_scene.get_local_mouse_position()
+				var mouse_pos := root.get_local_mouse_position()
 				for i in decoration.size():
 					if decoration[i].intersects_point(mouse_pos):
 						selected = [i]
@@ -55,7 +70,7 @@ func _unhandled_input(event: InputEvent) -> void:
 				if selected.size() > 0:
 					deco_widget.edit(decoration[selected[0]])
 				elif current_template != null:
-					place_decoration(current_template, mouse_pos)
+					place_decoration(current_template, mouse_pos, current_depth)
 	if event.is_action("delete"):
 		if selected.size() > 0:
 			delete_at(selected[0])
@@ -73,16 +88,16 @@ func place_decoration(template: DecoTemplate, position: Vector2, depth := 0.0) -
 	instance.node.position = position
 	instance.depth = depth
 	
-	depth_scene.add_object(instance.node, depth)
+	root.add_object(instance.node, depth)
 	decoration.append(instance)
 
 
 func delete_at(index: int) -> void:
 	decoration[index].node.queue_free()
 	decoration.remove_at(index)
-	depth_scene.objects.remove_at(index)
-	depth_scene.root_positions.remove_at(index)
-	depth_scene.depths.remove_at(index)
+	root.objects.remove_at(index)
+	root.root_positions.remove_at(index)
+	root.depths.remove_at(index)
 
 
 func on_decoration_translated(by: Vector2) -> void:
@@ -90,7 +105,7 @@ func on_decoration_translated(by: Vector2) -> void:
 		return
 	
 	for s in selected:
-		depth_scene.root_positions[s] += by
+		root.root_positions[s] += by
 
 
 func on_decoration_rotated(by: float) -> void:
@@ -141,7 +156,7 @@ func _save_data() -> void:
 			"transform": Transform2D(
 				d.node.transform.x, 
 				d.node.transform.y, 
-				depth_scene.root_positions[i]
+				root.root_positions[i]
 			),
 		}
 		
@@ -163,12 +178,12 @@ func _load_data() -> void:
 	for d in decoration:
 		d.node.queue_free()
 	
-	depth_scene.clear()
+	root.clear()
 	decoration.clear()
 	deco_widget.edit(null)
 	
-	depth_scene.project = level.world_settings
-	depth_scene.initialize(level.world_settings.screen_size_px)
+	root.project = level.world_settings
+	root.initialize(level.world_settings.screen_size_px)
 	
 	var resources := {}
 	var filepaths := {}
@@ -201,7 +216,7 @@ func _load_data() -> void:
 		instance.node.modulate = data.get("color", Color.WHITE)
 		instance.depth = data.get("depth", 0.0)
 		
-		depth_scene.add_object(instance.node, instance.depth, false)
+		root.add_object(instance.node, instance.depth, false)
 		decoration.append(instance)
 
 

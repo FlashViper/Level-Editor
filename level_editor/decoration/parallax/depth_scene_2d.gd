@@ -47,3 +47,17 @@ func _process(delta: float) -> void:
 	
 	for i in objects.size():
 		objects[i].global_position = final_points[i]
+
+
+func reproject_depth(object_index: int, new_depth: float) -> void:
+	root_positions[object_index] = projection.reproject(
+		root_positions[object_index], 
+		depths[object_index],
+		new_depth
+	)
+	
+	depths[object_index] = new_depth
+	if new_depth > 0:
+		objects[object_index].z_index = -1
+	elif new_depth < 0:
+		objects[object_index].z_index = 1
